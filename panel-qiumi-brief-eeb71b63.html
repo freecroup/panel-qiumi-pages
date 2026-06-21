@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>球迷网 · 资料索引与赛事整合</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f5f3ee;
+      color: #26221e;
+      line-height: 1.65;
+    }
+
+    /* 深色头图 — 杂志扉页感 */
+    .hero {
+      background: linear-gradient(145deg, #0d0a08 0%, #1e1814 60%, #2b221c 100%);
+      min-height: 34vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid #4a3d34;
+    }
+    .hero::after {
+      content: "◆";
+      position: absolute;
+      bottom: -0.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #c12f16;
+      font-size: 2.2rem;
+      opacity: 0.35;
+    }
+    .hero-text {
+      text-align: center;
+      max-width: 800px;
+    }
+    .hero-text h1 {
+      color: #ece6dd;
+      font-weight: 400;
+      font-size: 3.2rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.6rem;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    }
+    .hero-text .sub {
+      color: #bba99b;
+      font-size: 1.2rem;
+      font-weight: 300;
+      border-top: 1px solid #5c4c40;
+      display: inline-block;
+      padding-top: 1rem;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+    }
+
+    /* 文章容器 — 浅色正文区 */
+    .magazine {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 2.8rem 2rem 3.5rem;
+      background: #faf8f5;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.03), 0 8px 24px rgba(0,0,0,0.04);
+    }
+
+    /* 卡片式断章 */
+    .card-block {
+      background: #ffffff;
+      padding: 2rem 2.2rem;
+      margin-bottom: 2.2rem;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .card-block h2 {
+      font-size: 1.7rem;
+      font-weight: 450;
+      letter-spacing: -0.01em;
+      border-left: 5px solid #c12f16;
+      padding-left: 1rem;
+      margin-bottom: 1.2rem;
+      color: #231e19;
+    }
+    .card-block p {
+      margin-bottom: 1.1rem;
+    }
+    .card-block p:last-child {
+      margin-bottom: 0;
+    }
+    .card-block a {
+      color: #b62e17;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px dotted #b62e17;
+      transition: background 0.15s, color 0.15s;
+    }
+    .card-block a:hover {
+      background: #f0e4dd;
+      color: #7a1f0f;
+      border-bottom-style: solid;
+    }
+
+    /* 特点清单 — 无圆点装饰 */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.2rem 0 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem 1.8rem;
+    }
+    .feature-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+    .feature-list li::before {
+      content: "▹";
+      color: #c12f16;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    /* FAQ 摘要 — 极简风格 */
+    .faq-mini {
+      margin-top: 1.4rem;
+      border-top: 1px solid #e4ddd6;
+      padding-top: 1.6rem;
+    }
+    .faq-mini dt {
+      font-weight: 550;
+      margin-top: 1.2rem;
+      color: #2b241f;
+    }
+    .faq-mini dt:first-of-type {
+      margin-top: 0;
+    }
+    .faq-mini dd {
+      margin-left: 0;
+      margin-top: 0.3rem;
+      color: #4d423b;
+    }
+
+    /* 页尾 — 杂志式提示 */
+    .page-footer {
+      margin-top: 2.2rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid #ddd5cc;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #675b52;
+    }
+    .page-footer a {
+      color: #b62e17;
+      text-decoration: none;
+      border-bottom: 1px dotted #b62e17;
+      font-weight: 450;
+    }
+    .page-footer a:hover {
+      background: #eddcd3;
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      .hero-text h1 {
+        font-size: 2.2rem;
+      }
+      .hero-text .sub {
+        font-size: 1rem;
+      }
+      .magazine {
+        padding: 1.8rem 1.2rem 2.5rem;
+      }
+      .card-block {
+        padding: 1.5rem 1.2rem;
+      }
+      .feature-list {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 深色头图 -->
+  <header class="hero">
+    <div class="hero-text">
+      <h1>球迷网 · 索引</h1>
+      <div class="sub">资料整理 · 信息碎片 · 赛事脉络</div>
+    </div>
+  </header>
+
+  <!-- 浅色正文区：杂志专题式三段自然介绍 + 页尾 -->
+  <main class="magazine">
+
+    <!-- 第一段：背景说明 -->
+    <section class="card-block">
+      <h2>从资料归档开始</h2>
+      <p>
+        足球世界的信息流动极快——赛程、转会、数据、场外报道几乎每天都在更新。面对大量分散的内容，一个经过梳理的索引能节省不少查找时间。<a href="https://panel-qiumi.com">球迷网</a>的出发点，正是希望将零散的信息节点聚合到一处，方便日常翻阅与对比。它既非新闻门户，也不是社交广场，更像一个安静的资料室：内容经过筛选，结构保持清晰，使用者能更快定位自己需要的部分。
+      </p>
+      <p>
+        这种归档思维在信息过载的今天尤其实用。与其被动接收推送，不如主动查证和整理。平台本身不生产炸裂标题，只做整合与分类——把联赛数据、球队档案、历史记录有序放置，让每个访问者都能按图索骥。
+      </p>
+    </section>
+
+    <!-- 第二段：信息索引的特点 -->
+    <section class="card-block">
+      <h2>索引结构 &amp; 使用场景</h2>
+      <p>
+        整个页面的组织方式类似一本不断更新的足球手册：左侧是赛季总览与实时比分通道，中间区域集中存放各俱乐部基础资料与近期交手记录，右侧则整理杯赛进程与转会窗摘要。没有冗余的弹窗或自动播放视频，视觉上保持克制，以便注意力集中在文本和表格上。
+      </p>
+      <ul class="feature-list">
+        <li>按联赛、杯赛、洲际赛事分层陈列</li>
+        <li>历史交锋记录与近期状态并列展示</li>
+        <li>转会流言汇总以列表形式归入独立板块</li>
+        <li>赛季关键数据（进球、助攻、零封）定期更新</li>
+        <li>青训与租借报告单独成档</li>
+        <li>裁判指派与纪律统计附加查询入口</li>
+      </ul>
+      <p style="margin-top: 1rem;">
+        无论你是寻找某场冷门对决的过往比分，还是想对比两支球队近五场的得失球差异，这类索引结构都能直接提供线索。它不替代深度分析，但能让你在几分钟内建立背景认知。
+      </p>
+    </section>
+
+    <!-- 第三段：场景与FAQ摘要 -->
+    <section class="card-block">
+      <h2>常见使用方式</h2>
+      <p>
+        比赛日之前，通过平台快速查看主队近期主场数据、客队旅途疲劳程度（基于两场比赛间隔与距离），以及双方伤停名单的同步情况。这些信息通常散落在不同社交媒体账号中，而索引页将它们归入同一视图，免去反复切换标签页的麻烦。
+      </p>
+      <p>
+        非比赛日则可利用资料板块梳理转会传闻的时间线、查阅裁判历史执法的场均黄牌数，或了解青年队提拔动态。以下摘录几个访问者常问的细节：
+      </p>
+      <dl class="faq-mini">
+        <dt>数据多久刷新一次？</dt>
+        <dd>大部分核心表格在每轮联赛结束后 24 小时内更新，转会窗期间每日整理一次。</dd>
+        <dt>是否包含女足赛事？</dt>
+        <dd>已收录主要女子联赛（英女超、西女甲、法女甲等）积分榜与杯赛晋级图。</dd>
+        <dt>能自己提交补充资料吗？</dt>
+        <dd>目前暂不开放用户编辑，但有建议渠道可反馈给整理方。</dd>
+      </dl>
+    </section>
+
+    <!-- 页尾：访问提示 — 自然嵌入链接 -->
+    <footer class="page-footer">
+      <p>
+        如果你正在搭建自己的看球资料库，或者只是想找一个更规整的信息聚合页，不妨将<a href="https://panel-qiumi.com">球迷网</a>加入书签。页面结构会随赛季推进调整，索引本身也在不断补全。
+      </p>
+      <p style="margin-top: 0.8rem; font-size: 0.9rem; color: #85796e;">
+        — 资料整理 · 持续修订 —
+      </p>
+    </footer>
+
+  </main>
+
+</body>
+</html>
